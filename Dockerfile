@@ -1,7 +1,9 @@
 FROM vabene1111/recipes:latest
 
-# Render expects you to listen on $PORT
-ENV PORT=10000
+# Render provides $PORT, but the image defaults to 8080
+# we’ll adjust boot.sh to respect $PORT
 
-# Just run the bundled boot script (it already starts gunicorn+nginx)
-CMD ["/opt/recipes/boot.sh"]
+COPY render_boot.sh /opt/recipes/render_boot.sh
+RUN chmod +x /opt/recipes/render_boot.sh
+
+ENTRYPOINT ["/sbin/tini", "--", "/opt/recipes/render_boot.sh"]
