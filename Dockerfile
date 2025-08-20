@@ -1,4 +1,7 @@
 FROM vabene1111/recipes:latest
 
-# Render sets $PORT automatically, so we bind to it
-CMD ["gunicorn", "recipes.wsgi:application", "--bind", "0.0.0.0:${PORT}", "--workers=4"]
+# Render expects you to listen on $PORT
+ENV PORT=10000
+
+# Just run the bundled boot script (it already starts gunicorn+nginx)
+CMD ["/opt/recipes/boot.sh"]
