@@ -32,8 +32,6 @@ services:
         fromDatabase:
           name: tandoordb
           property: port
-      - key: ALLOWED_HOSTS
-        value: "*"
 
 databases:
   - name: tandoordb
